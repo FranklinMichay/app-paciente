@@ -7,7 +7,7 @@ import { AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 @Component({
   selector: 'page-login',
@@ -18,7 +18,8 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/';
 export class LoginPage {
 
   isLoggedIn: boolean = false
-  user: any
+  userFacebook: any;
+  user: any = {};
  
   items: any;
   data: any;
@@ -80,9 +81,9 @@ export class LoginPage {
     this.facebook.api("/"+userid+"/?fields=id,email,name,picture",["public_profile"])
       .then(res => {
         this.isLoggedIn = true
-        this.user = res
+        this.userFacebook = res
         localStorage.setItem('user', JSON.stringify(res));
-        console.log(this.user)
+        console.log(this.userFacebook)
       })
       .catch(e => {
         console.log(e);

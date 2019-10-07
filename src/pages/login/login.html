@@ -48,10 +48,6 @@
       <ion-label class="new-account" (tap)="goToRegister()"> CREAR CUENTA </ion-label>
     </ion-col>
   </ion-row>
-  
-  <div>
-    <button ion-button (click)="login()" *ngIf="!isLoggedIn">Login with Facebook!</button>
-  </div>
   <div *ngIf="isLoggedIn">
     <img src="{{user.picture.data.url}}" alt=""><br>
     <i>{{user.name}}</i><br>
