@@ -1,0 +1,88 @@
+<ion-content>
+
+    <img class="splash" src="assets/imgs/splash.svg">
+    <img class="logo" src="assets/imgs/medipharm.svg">
+    <ion-label class="new-register">REGISTRO NUEVO PACIENTE</ion-label>
+
+    <form [formGroup]="myForm" (ngSubmit)="saveUser()" novalidate>
+
+        <ion-list class="container-form">
+            <ion-item class="val-input">
+                <input formControlName="nombre" type="text" placeholder="Nombre" [(ngModel)]="user_admin.nombre"
+                    class="input-form">
+                
+            </ion-item>
+            <ion-item class="val-message" *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
+                <p class="validator" *ngIf="myForm.get('nombre').hasError('required')">
+                    Nombre es requerido.
+                </p>
+            </ion-item>
+
+            <ion-item class="val-input">
+                <input formControlName="apellido" type="text" placeholder="Apellido"
+                    [(ngModel)]="user_admin.apellido" class="input-form">
+                
+            </ion-item>
+            <ion-item class="val-message" *ngIf="myForm.get('apellido').errors && myForm.get('apellido').dirty">
+                <p class="validator" *ngIf="myForm.get('apellido').hasError('required')">
+                    Apellido es requerido.
+                </p>
+            </ion-item>
+
+            <ion-item class="val-input">
+                <input formControlName="email" type="text" placeholder="Email" [(ngModel)]="user_admin.email"
+                    class="input-form">
+                
+            </ion-item>
+            <ion-item class="val-message" *ngIf="myForm.get('email').errors && myForm.get('email').dirty">
+                <p class="validator" *ngIf="myForm.get('email').hasError('required')">
+                    identificación es requerido.</p>
+
+                <p class="validator" *ngIf="myForm.get('email').hasError('email')">
+                    Email incorrecto.</p>
+            </ion-item>
+
+            <ion-item class="val-input">
+                <input formControlName="identificacion" type="text" placeholder="Identificacion"
+                    [(ngModel)]="user_admin.identificacion" class="input-form">
+                
+            </ion-item>
+            <ion-item class="val-message"
+                *ngIf="myForm.get('identificacion').errors && myForm.get('identificacion').dirty">
+                <p class="validator" *ngIf="myForm.get('identificacion').hasError('required')">
+                    identificación es requerido.</p>
+
+                <p class="validator" *ngIf="myForm.get('identificacion').hasError('maxLength')">
+                    El maximo de caracteres permitidos es 10. </p>
+            </ion-item>
+            <div class="password">
+                <ion-item class="item-pass">
+                    <ion-col col-11>
+                        <input [type]="passwordType" formControlName="password1" clearOnEdit="true" placeholder="******"
+                            [(ngModel)]="user_admin.password1" class="input-pass">
+                    </ion-col>
+                    <ion-col col-1>
+                        <ion-icon item-end [name]="passwordIcon" class="icon-pass" (click)='hideShowPassword()'>
+                        </ion-icon>
+                    </ion-col>
+                </ion-item>
+            </div>
+
+            <ion-item class="val-message" *ngIf="myForm.get('password1').errors && myForm.get('password1').dirty">
+                <p class="validator" *ngIf="myForm.get('password1').hasError('required')">
+                    Contraseña es requerido.</p>
+                <p class="validator" *ngIf="myForm.get('password1').hasError('pattern')">
+                    Contraseña debe contener números y letras. </p>
+
+                <p class="validator" *ngIf="myForm.get('password1').hasError('pattern')">
+                    Letras mayúsculas no permitidas </p>
+                <p class="validator" *ngIf="myForm.get('password1').hasError('pattern')">
+                    Máximo 15 caracteres </p>
+                <p class="validator" *ngIf="myForm.get('password1').hasError('pattern')">
+                    Ejemplo: juan-1234 </p>
+            </ion-item>
+        </ion-list>
+        <button ion-button class="register" type="submit" [disabled]="myForm.invalid">REGISTRARSE</button>
+    </form>
+    <ion-label class="login" (tap)="cancelar()"> ¿Ya tienes una cuenta? </ion-label>
+</ion-content>

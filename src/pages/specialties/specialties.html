@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title class="title text-center">
+      Especialidades
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="container-locals" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="colum" *ngFor="let speciality of specialties" col-5>
+        <div class="container-product">
+          <a class="subCategoryThumb" (click)="goToSpecialty(speciality)">
+            <img src="assets/imgs/doctor.png" class="img-product-detail" alt="img">
+          </a>
+        </div>
+
+        <a class="subCategoryTitle" (click)="goToSpecialty(speciality)">
+          <span class="product-name"> {{speciality.nombre}} </span>
+          <span  class="product-slogan" *ngIf="speciality.detalle"> {{speciality.detalle}}</span>
+        </a>
+      </ion-col>
+      <div *ngIf="specialties && specialties.length === 0" class="imagen-no-products">
+        <div class="center-img">
+          <img src="assets/imgs/no-locals.svg">
+           <p class="empty-text">Aún no hay locales para mostrar en esta sección</p>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

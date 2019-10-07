@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar class="bg-header" color="aqua-marine">
+    <ion-title class="text-center">MÉDICOS</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-toolbar class="toolbar-search">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9>
+          <ion-searchbar placeholder="Buscar" (ionInput)="onInput($event)"> </ion-searchbar>
+        </ion-col>
+        <ion-col col-1>
+          <ion-icon class="funnel" name="md-funnel" (click)="filterModal()"></ion-icon>
+        </ion-col>
+        <ion-col col-2>
+          <label class="filtros" (click)="filterModal()">FILTROS</label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-grid>
+    <ion-row class="container-">
+      <ion-col col-4 *ngIf="params.fields.especialidad" class="container-tags">
+        {{params.fields.especialidad}}
+      </ion-col>
+      <ion-col col-4 *ngIf="medicalCenter" class="container-tags">
+        {{medicalCenter}}
+      </ion-col>
+      <ion-col col-4 *ngIf="params.fields.ciudad" class="container-tags">
+        <div *ngIf="params.fields.ciudad" >{{params.fields.ciudad}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="searching" class="results">
+    <div *ngIf="medics && medics.length === 0">
+      <div class="center-img">
+        <img src="assets/imgs/sin-datos.svg">
+        <p class="text">No se han encontrado resultados para su búsqueda</p>
+      </div>
+    </div>
+    <ion-list *ngIf="medics">
+      <ion-grid class="content-medic">
+        <ion-row *ngFor="let medic of medics" (click)="goToDetails(medic)" class="container-medic">
+          <ion-col class="container-image" col-4>
+            <img class="image" *ngIf="medic.profile_pic" [src]="medic.profile_pic">
+            <img class="image" *ngIf="!medic.profile_pic" src="assets/imgs/doctor.png">
+          </ion-col>
+          <ion-col class="container-info-medic" col-7>
+            <ion-row>
+              <ion-col class="name" col-12>
+                {{ medic.fields.nombre }} {{ medic.fields.apellido }}
+              </ion-col>
+              <ion-col class="fecha" col-12>
+                {{ medic.fields.especialidad}} &#8226; {{ medic.fields.ciudad }}
+              </ion-col>
+              <ion-col class="cm" *ngFor="let cm of medic.fields.centroMedico" col-6>
+                {{ cm.nombre }}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 class="icon-medic">
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+</ion-content>

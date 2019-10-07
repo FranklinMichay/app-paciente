@@ -1,0 +1,90 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+ion-item.item {
+  padding-left: 28px;
+}
+
+ion-item#category {
+  padding-left: 15px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rounded-image {
+  border-radius: 50%;
+  height       : 100px;
+}
+
+.logo {
+  margin-left : auto;
+  margin-right: auto;
+  text-align  : center !important;
+  height      : auto;
+  width       : 45px;
+}
+
+ion-loading {
+  opacity: 0.8;
+}
+
+ion-loading div {
+  z-index          : 10;
+  background-image : url(./../assets/imgs/spinner.svg);
+  background-repeat: no-repeat;
+  width            : 65px;
+  height           : 46px;
+}
+
+ion-spinner {
+  width : 32px;
+  height: 32px;
+}
+
+ion-spinner svg {
+  margin-top      : -21px;
+  margin-left     : -10px;
+  width           : 75px;
+  height          : 75px;
+  font-size-adjust: initial;
+}
+
+ion-backdrop.backdrop-no-tappable {
+  cursor    : auto;
+  opacity   : 1 !important;
+  background: radial-gradient(circle at center, rgba(76, 76, 76, 0.9) 9%, rgba(89, 89, 89, 0.8) 7%, rgba(89, 89, 89, 0.8) 7%, rgba(19, 19, 19, 0.979) 13%);
+}
+
+.loading-md .loading-wrapper {
+  padding      : 14px 0px 0px 5px;
+  border-radius: 50%;
+  height       : 65px;
+  width        : 65px;
+}
+
+.loading-ios .loading-wrapper {
+  padding      : 14px 0px 0px 5px;
+  border-radius: 50%;
+  height       : 65px;
+  width        : 65px;
+}
+
+ion-spinner {
+  position: relative;
+  display : inline-block;
+}

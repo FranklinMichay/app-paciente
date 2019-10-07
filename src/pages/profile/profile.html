@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar color="aqua-marine">
+    <ion-title class="text-center" *ngIf="user_profile">Perfil de Usuario
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToHome()">
+        <ion-icon color="white" name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="style-content" *ngIf="user_profile">
+
+  <section text-center class="profile-picture">
+    <img *ngIf="image" [src]="image" class="profile-picture__image" alt="Profile Picture">
+    <img *ngIf="!image" [src]="'assets/imgs/perfil.svg'" class="profile-picture__image" alt="Profile Picture">
+  </section>
+  <button ion-button class="edit-profile" type="submit" (tap)="goEditProfile()">EDITAR PERFIL</button>
+
+  <div>
+
+    <h4 class="inf-title-pac">Información básica:</h4>
+    <ion-grid class="container-inf-pac">
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Nombres:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.name}}&nbsp;{{user_profile.email}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Email:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.email}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Identificación:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.identificacion}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Ciudad:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.ciudad}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Fecha de Nacimiento:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.fecha}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5>
+          <label class="style-label">Teléfono:</label>
+        </ion-col>
+        <ion-col col-7>
+          <span class="inf-pac">{{user_profile.telefonoCelular}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  
+
+</ion-content>

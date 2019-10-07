@@ -1,0 +1,226 @@
+page-schedule {
+  .title {
+    color      : black;
+    font-size  : 15px;
+    font-weight: 300;
+
+    
+  }
+
+  .container {
+    background-color: map-get($colors, disabled)
+  }
+
+  .table-bordered {
+    margin: 2% 0;
+    width : 100%;
+  }
+
+  .head-content {
+    height          : 45px;
+    background-color: map-get($colors, white-two);
+    border-radius   : 55px;
+    margin-top      : -10%;
+  }
+
+  .month-label {
+    font-size  : 20px;
+    padding    : 0% 5%;
+    font-weight: 500;
+  }
+
+  .icon-control {
+    margin: 2% 5%;
+  }
+
+  .row-order {
+    width: 90%;
+  }
+
+  .day-ts {
+    margin-top: 20%;
+    height    : 100%;
+  }
+
+
+
+  .icon-header {
+    margin   : 17% 0% !important;
+    color    : map-get($colors, soft-blue);
+    font-size: 30px;
+  }
+
+  .colum {
+    padding      : 0;
+    box-shadow   : 2px 0px 5px 2px rgba(130, 130, 130, 0.12);
+    margin       : 13px;
+    align-content: center !important;
+    height       : 80px;
+  }
+
+  .bg-info {
+    background-color: map-get($colors, primary-default);
+    color           : white !important;
+    border-radius   : 36vh;
+    width           : 5%;
+  }
+
+  .bg-sunday {
+    color: #c5c5c5 !important;
+  }
+
+  .colm {
+    padding      : 5px;
+    height       : 20px !important;
+    border-bottom: 1px #4c4e6a;
+  }
+
+  .cell {
+    padding    : 11px 13px;
+    height     : 27px !important;
+    color      : #4c4e6a;
+    font-size  : 18px;
+    font-weight: 800;
+  }
+
+  .calendar {
+    width: 100%;
+  }
+
+  .disponible {
+    width             : auto;
+    height            : 84px;
+    border-radius     : 6px;
+    border            : solid 1px var(--silver);
+    background-color  : map-get($colors, white-two);
+    //margin-top      : 2%;
+  }
+
+  .container-disponible {
+    display: flex;
+  }
+
+  .btn-get-meeting {
+    width           : 50%;
+    height          : 40px;
+    border-radius   : 5px;
+    font-weight     : 600;
+    letter-spacing  : 1.5px;
+    background-color: map-get($colors, pale-lilac);
+    margin-top      : 7.5%;
+    margin-left     : auto;
+    margin-right    : auto;
+    color           : black;
+  }
+
+  .container-hours {
+    padding     : 0px;
+    margin-left : auto;
+    margin-right: -13%;
+    width       : 100%;
+    display     : flex;
+
+  }
+
+  .hour {
+
+    font-family   : OpenSans;
+    font-size     : 12px;
+    font-weight   : 600;
+    font-style    : normal;
+    font-stretch  : normal;
+    line-height   : normal;
+    letter-spacing: 0.3px;
+    color         : #787993;
+    margin-top    : 7%;
+
+  }
+
+  .calendar-content {
+    display         : block;
+    margin-top      : 10%;
+    width           : auto;
+    background-color: map-get($colors, white-two);
+  }
+
+  .medic-label {
+    text-align   : left;
+    font-size    : 20px;
+    padding      : 5% !important;
+    box-shadow   : 2px 6px 6px 7px rgba(78, 78, 78, 0.12);
+    border-radius: 20px;
+  }
+
+  .icon-title {
+    font-size: 20px;
+    color    : map-get($colors, primary);
+    margin   : 0px 10px;
+  }
+
+  .img-empty {
+    margin-top: 10%;
+    width     : 30%;
+    height    : auto;
+  }
+
+  .label-empty {
+    margin: 5% 10%;
+  }
+
+  .pedido {
+    width       : auto;
+    font-size   : 12px;
+    font-weight : 500;
+    color       : blue;
+    margin-left : auto;
+    margin-right: auto;
+    display     : flex;
+    margin-top  : 1%;
+  }
+
+  .container-2 {
+    color: red;
+  }
+
+}
+
+@media (min-width: 619px) {
+
+  .btn-get-meeting {
+
+    margin-top: calc(2.5% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .hour {
+    margin-top: calc(2.5% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    font-size : calc(14px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .disponible {
+    height: calc(100px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .btn-get-meeting {
+    height   : calc(50px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    font-size: calc(18px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  /*  .container-disponible {
+    top      : calc(33% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    font-size: calc(25px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .disponible {
+    top      : calc(32% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    font-size: calc(20px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    width    : calc(11% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .btn-get-meeting {
+    font-size: calc(20px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+
+  }
+} */
+
+
+}

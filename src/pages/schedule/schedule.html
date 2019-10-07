@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar color="aqua-marine">
+    <ion-buttons end>
+      <button ion-button (click)="goToHome()">
+        <ion-icon color="white" name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>AGENDA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="text-center container">
+  <div class="calendar-content">
+    <div class="head-content">
+      <ion-col class="icon-header">
+        <ion-icon *ngIf="disableBackBS" name="arrow-dropleft" class="icon-control" (click)="previous()"></ion-icon>
+      </ion-col>
+      <span class="month-label">{{monthLabel}},&nbsp;&nbsp;{{currentYear}}</span>
+      <ion-col class="icon-header">
+        <ion-icon name="arrow-dropright" class="icon-control" (click)="next()">
+        </ion-icon>
+      </ion-col>
+    </div>
+    <table class="table-bordered" id="calendar">
+      <thead class="head-content">
+        <tr class="head-content">
+          <th class="title">Dom</th>
+          <th class="title">Lun</th>
+          <th class="title">Mar</th>
+          <th class="title">Mie</th>
+          <th class="title">Jue</th>
+          <th class="title">Vie</th>
+          <th class="title">Sab</th>
+        </tr>
+      </thead>
+      <tbody class="calendar" id="calendar-body">
+      </tbody>
+    </table>
+  </div>
+  <ion-grid *ngIf="hours" class="container-disponible">
+    <ion-row *ngFor="let hour of hours">
+      <ion-col col-2 class="hour">
+        <span [ngStyle]="{'color': hour.color}">
+          {{hour.hora.substring(0, 5)}}
+        </span>
+      </ion-col>
+      <ion-col col-10>
+        <div class="disponible">
+          <ion-row>
+            <button class="btn-get-meeting" [disabled]="hour.disabled" (click)="getMeeting(hour)">
+              AGENDAR
+            </button>
+          </ion-row>
+          <ion-row >
+            <label *ngIf="hour.disabled" class="pedido">Ya tienes un pedido</label>
+            <label *ngIf="hour.ocupado" class="pedido">Ya hay un pedido de agendamiento</label>
+          </ion-row>
+          
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="!hours">
+    <img class="img-empty" src="assets/imgs/sin-datos.svg">
+    <h5 class="label-empty">No se encontraron horas disponibles </h5>
+  </div>
+</ion-content>

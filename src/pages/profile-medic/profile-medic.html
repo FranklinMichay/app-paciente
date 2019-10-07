@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar class="bg-header" color="aqua-marine">
+    <ion-title class="text-center" *ngIf="medic.fields">{{ medic.fields.nombre }} {{ medic.fields.apellido }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToHome()">
+        <ion-icon color="white" name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <img class="portada" *ngIf="!medic.profile_pic"
+    src="https://cdn.lavoz.com.ar/sites/default/files/styles/width_1072/public/nota_periodistica/cirujano_0.jpg">
+  <button class="ver-agenda" id="previous" (click)="goToSchedule()">VER AGENDA</button>
+  <div class="container-medic">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <label class="medico">Médico</label>
+        </ion-col>
+        <ion-col col-6>
+          <p class="name-medic" *ngIf="medic.fields">{{ medic.fields.nombre }}&nbsp;{{ medic.fields.apellido }}</p>
+        </ion-col>
+        <ion-col>
+          <h3 class="especialidad" *ngIf="medic.fields">{{ medic.fields.especialidad }}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+  <label class="info">Realiza consultas médicas diarias a estudiantes y personal en general.
+    Diagnostica y prescribe tratamientos médicos a los pacientes.</label>
+  <ion-list *ngIf="medic.fields">
+
+    <div class="container-locate">
+      <ion-icon class="icon-location" name="pin"></ion-icon>
+      <span class="text-locate">{{ medic.fields.ciudad }}</span>
+    </div>
+    <div class="container-calendar">
+      <ion-icon class="icon-location" name="calendar"></ion-icon>
+      <span class="text-calendar">Fecha de nacimiento 5 de Agosto de 1989</span>
+    </div>
+    <h3 class="medical-center">Centros Médicos</h3>
+    <div class="container-">
+      <ion-item class="container-mc" *ngFor="let item of medic.fields.centroMedico">
+        <p class="text-mc"> {{ item.nombre }} </p>
+
+        <p class="text-map">
+          <ion-icon name="pin"></ion-icon> <b> </b> COMO LLEGAR
+        </p>
+        <label class="text-mc-detail">Ubicacion de centro medico Ubicacion de centro medico </label>
+      </ion-item>
+    </div>
+  </ion-list>
+  <h3 class="medical-center">Consultorio</h3>
+  <div *ngIf="slides" class="container-product-detail">
+    <ion-slides pager>
+      <ion-slide *ngFor="let slide of slides">
+        <img [src]="slide.src" class="img-product">
+        <!-- <p class="slide-name-medical-center">{{slide.medicalCenter}}</p>
+          <p class="slide-text">{{slide.detalle}}</p> -->
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+
+</ion-content>

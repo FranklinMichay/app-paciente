@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar class="bg-header" color="aqua-marine">
+    <ion-title class="text-center" *ngIf="medic">{{ medic.medNom }}&nbsp;&nbsp;{{ medic.medApe }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToHome()">
+        <ion-icon color="white" name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content *ngIf="medic">
+  <img class="portada" src="https://cdn.lavoz.com.ar/sites/default/files/styles/width_1072/public/nota_periodistica/cirujano_0.jpg" alt="edit user">
+  
+  <div class="container-medic">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <label class="medico">Médico</label>
+        </ion-col>
+        <ion-col>
+          <p class="name-medic" *ngIf="medic">{{ medic.medNom }}-{{ medic.medApe }}</p>
+        </ion-col>
+        <ion-col>
+          <h3 class="especialidad" *ngIf="medic">{{ medic.espeMed }}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div>
+    <button class="label-content">
+      <ion-row>
+        <button class="state" *ngIf="state"> {{state}} </button>
+        <ion-col class="name" col-12>
+          Cita médica con &nbsp;{{ medic.medNom }}&nbsp;{{ medic.medApe }}
+        </ion-col>
+        <ion-col class="fecha" col-12>
+          {{ medic.fecha }} &nbsp; &#8212; &nbsp;{{ medic.hora }}
+        </ion-col>
+        <ion-col class="cm" col-12>
+          {{ medic.centroMedico }} &nbsp; &#8212; &nbsp;{{ medic.espeMed }}
+        </ion-col>
+      </ion-row>
+      <div class="container-posp">
+        <button class="cancelar-shedule" (click)="openModal(medic)"> CANCELAR CITA</button>
+        <button *ngIf="posponed" class="cancelar-shedule" (click)="accept('accepted', medic)"> AGENDAR CITA</button>
+      </div>
+    </button>
+  </div>
+
+  <div>
+    <label class="info">
+      Realiza consultas médicas diarias a estudiantes y personal en general.
+      Diagnostica y prescribe tratamientos médicos a los pacientes.
+    </label>
+    <ion-list  class="container-ion-list">
+      <div class="container-locate">
+        <ion-icon class="icon-location" name="pin"></ion-icon>
+        <span *ngIf="medic" class="text-locate">
+          {{ medic.fecha }} &nbsp; &#8212; &nbsp;{{ medic.hora }} </span>
+      </div>
+      <div class="container-calendar">
+        <ion-icon class="icon-location" name="calendar"></ion-icon>
+        <span class="text-calendar">Fecha de nacimiento 5 de Agosto de 1989</span>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

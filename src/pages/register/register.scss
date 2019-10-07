@@ -1,0 +1,229 @@
+page-register {
+
+  .password {
+    width           : 90%;
+    height          : 55px;
+    font-size       : 17px;
+    border-radius   : 3px;
+    background-color: rgb(233, 233, 233);
+    margin-top      : 5%;
+    font-weight     : 500;
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+
+  }
+
+  .icon-pass {
+    font-size: 3rem !important;
+    margin   : 0 auto !important;
+    right    : -14%;
+  }
+
+  .item-pass {
+    background-color: rgb(233, 233, 233);
+  }
+
+  .input-pass {
+    height        : initial;
+    background    : transparent;
+    //border      : 0px;
+    border        : 0;
+    //margin-top  : 5%;
+  }
+
+  .scroll-content {
+    width           : 100%;
+    height          : 100%;
+    background-color: #f6f6f6;
+  }
+
+  .logo {
+    width   : 62%;
+    position: fixed;
+    top     : 7%;
+    left    : 19%;
+
+  }
+
+  .splash {
+    width: 100%;
+  }
+
+  .new-register {
+
+    font-family : Poppins;
+    font-weight : bold;
+    color       : #ffffff;
+    text-align  : center;
+    margin-top  : -22%;
+    margin-left : auto;
+    margin-right: auto;
+
+  }
+
+  .user {
+
+    width           : 90%;
+    height          : 55px;
+    font-size       : 17px;
+    border-radius   : 3px;
+    background-color: rgb(233, 233, 233);
+    margin-top      : 20%;
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+  }
+
+  .name {
+    width           : 90%;
+    font-size       : 17px;
+    border-radius   : 3px;
+    font-family     : Poppins;
+    background-color: #e9e9e9;
+    margin-top      : 2%;
+    font-weight     : 800;
+    margin-left     : auto;
+    margin-right    : auto;
+
+
+  }
+
+  .container-input {
+    margin-top: 20%;
+  }
+
+  .mail {
+    width           : 90%;
+    height          : 55px;
+    font-size       : 17px;
+    border-radius   : 3px;
+    background-color: rgb(233, 233, 233);
+    margin-top      : 5%;
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+  }
+
+  .pass {
+    width           : 90%;
+    height          : 55px;
+    font-size       : 17px;
+    border-radius   : 3px;
+    background-color: rgb(233, 233, 233);
+    margin-top      : 5%;
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+  }
+
+  .val-input {
+    width           : 90%;
+    height          : 55px;
+    font-size       : 17px;
+    border-radius   : 3px;
+    background-color: rgb(233, 233, 233);
+    margin-top      : 3%;
+    font-weight     : 500;
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+
+  }
+
+  .container-form {
+    margin-top: 20%;
+  }
+
+  p.validator {
+    color        : red;
+    margin-left  : 6%;
+    padding      : -3px 0px -12px 1px;
+    margin-top   : auto;
+    margin-bottom: auto;
+
+  }
+
+  .val-message {
+    background-color: map-get($colors, pale-grey);
+    border          : 0;
+  }
+
+  .input-form {
+    border: 0;
+    background-color: rgb(233, 233, 233);
+  }
+
+  .input-pass {
+    height     : initial;
+    background : transparent;
+    border     : 0px solid;
+    margin-top : 5%;
+    font-family: Poppins;
+    font-weight: 800;
+  }
+
+  .passwordIcon {
+    font-size: 3rem !important;
+    position : relative !important;
+    top      : 11px !important;
+    margin   : 0 auto !important;
+  }
+
+
+  .register {
+    width           : 90%;
+    height          : 50px;
+    border-radius   : 25px;
+    background-image: linear-gradient(99deg, #ffc185, #fd5f54);
+    margin-left     : auto;
+    margin-right    : auto;
+    display         : flex;
+    margin-top      : 5%;
+  }
+
+
+  .login {
+
+    font-family   : Poppins;
+    font-size     : 15px;
+    letter-spacing: 0.2px;
+    color         : #597bf0;
+    margin-top    : 9%;
+    text-align    : center;
+  }
+}
+
+@media (min-width: 619px) {
+
+  //font-size: calc(18px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  .name {
+    margin-top: calc(1% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .container-input {
+    margin-top: calc(22% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .login {
+    font-size: calc(18px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .register {
+    font-size  : calc(20px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    //width    : calc(60% + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .new-register {
+    font-size: calc(18px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .val-input {
+    font-size: calc(20px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+    height   : calc(60px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+
+  .new-register {
+    font-size: calc(20px + (24 - 14) * ((100vw - 300px) / (1200 - 300))) !important;
+  }
+}

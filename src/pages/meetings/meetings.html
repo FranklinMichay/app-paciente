@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-navbar color="aqua-marine">
+    <ion-buttons end>
+      <button ion-button (click)="goToHome()">
+        <ion-icon color="white" name="home"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title class="text-center-citas">Mis Citas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content-cites">
+  <ion-row class="nav nav-tabs">
+    <ion-col class="col-left" [ngClass]="{'active': currentTab === 'step1'}" (click)="changeTab('step1')">
+      <label class="text-center">Aceptadas</label>
+    </ion-col>
+    <ion-col class="col-center" [ngClass]="{'active': currentTab === 'step2'}" (click)="changeTab('step2')">
+      <label class="text-center">Nuevas</label>
+    </ion-col>
+    <ion-col class="col-right" [ngClass]="{'active': currentTab === 'step3'}" (click)="changeTab('step3')">
+      <label class="text-center">Pospuestas</label>
+    </ion-col>
+  </ion-row>
+
+  <ion-list class="list-header">
+    <ion-item-sliding #item>
+      <ion-item class="days-week">
+        <ion-row class="content-header">
+          <ion-col *ngFor=" let v of daysWeek">
+            <span >
+              {{v.label}}
+            </span>
+            <span *ngIf="v.day" class="day-number" [className]="v.selected ? 'today' : 'sn'" (tap)="changeDay(v.day)">
+              {{v.day}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="secondary" (click)="previousWeek()">Anterior</button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="secondary" (click)="nextWeek()">Siguiente</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <div class="container-date">
+      <span class="text-center-day date-label"> {{dateLabel}} </span>
+    </div>
+
+  </ion-list>
+
+  <div class="form-group required" *ngIf="currentTab === 'step1'">
+    <div class="container">
+      <ion-grid *ngIf="accepted">
+        <ion-row *ngFor="let val of accepted" class="row-container">
+          <ion-col col-3 class="state">
+            <img class="image" *ngIf="val.profile_pic" [src]="val.profile_pic">
+            <img class="image" *ngIf="!val.profile_pic" src="assets/imgs/doctor.png">
+          </ion-col>
+          <ion-col col-8 class="state">
+            <ion-row>
+              <ion-col col-12>
+                <span class="label-up">
+                  {{val.medNom}} &nbsp; {{val.medApe}}
+                </span>
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{val.fecha}} &#8212;&nbsp;{{val.hora}}
+              </ion-col>
+              <ion-col col-12 class="detail-esp">
+                {{val.espeMed}}
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{val.centroMedico}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 (click)="goToDetails(val, 'Agendada', false)">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="!accepted || accepted.length == 0" class="empty-container">
+        <img src="assets/imgs/sin-datos.svg" class="empty-state">
+        <h3 class="text-center" >Sin Contenido</h3>
+      </div>
+    </div>
+  </div>
+  <div class="form-group required" *ngIf="currentTab === 'step2'">
+    <div>
+
+      <ion-grid *ngIf="news">
+        <ion-row *ngFor="let v of news" class="row-container">
+          <ion-col col-3 class="state">
+            <img class="image" *ngIf="v.profile_pic" [src]="v.profile_pic">
+            <img class="image" *ngIf="!v.profile_pic" src="assets/imgs/doctor.png">
+          </ion-col>
+          <ion-col col-8 class="state">
+            <ion-row>
+              <ion-col col-12>
+                <span class="label-up">
+                  {{v.medNom}} &nbsp; {{v.medApe}}
+                </span>
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{v.fecha}} &#8212;&nbsp;{{v.hora}}
+              </ion-col>
+              <ion-col col-12 class="detail-esp">
+                {{v.espeMed}}
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{v.centroMedico}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 (click)="goToDetails(v, 'Nueva', false)">
+            <!-- <ion-icon name="close-circle" class="close"></ion-icon> -->
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="!news || news.length == 0 " class="empty-container">
+        <img src="assets/imgs/sin-datos.svg" class="empty-state">
+        <h3 class="text-center" >Sin Contenido</h3>
+      </div>
+    </div>
+  </div>
+  <div class="form-group required" *ngIf="currentTab === 'step3'">
+    <div>
+      <ion-grid *ngIf="postponed">
+        <ion-row *ngFor="let v of postponed" class="row-container">
+          <ion-col col-3 class="state">
+            <img class="image" *ngIf="v.profile_pic" [src]="v.profile_pic">
+            <img class="image" *ngIf="!v.profile_pic" src="assets/imgs/doctor.png">
+          </ion-col>
+          <ion-col col-8 class="state">
+            <ion-row>
+              <ion-col col-12>
+                <span class="label-up">
+                  {{v.medNom}} &nbsp; {{v.medApe}}
+                </span>
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{v.fecha}} &#8212;&nbsp;{{v.hora}}
+              </ion-col>
+              <ion-col col-12 class="detail-esp">
+                {{v.espeMed}}
+              </ion-col>
+              <ion-col col-12 class="detail">
+                {{v.centroMedico}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 (click)="goToDetails(v, 'Pospuesta', true)">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="!postponed || postponed.length == 0 " class="empty-container">
+        <img src="assets/imgs/sin-datos.svg" class="empty-state">
+        <h3 class="text-center" >Sin Contenido</h3>
+      </div>
+    </div>
+  </div>
+</ion-content>

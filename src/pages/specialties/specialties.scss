@@ -1,0 +1,72 @@
+page-specialties {
+  .continaer-locals {
+    padding: 15px;
+    max-width: 200px;
+  }
+
+  .colum {
+    padding: 10px 10px;
+    box-shadow: 2px 0px 5px 2px rgba(130, 130, 130, 0.16);
+    margin: 12px;
+    align-content: center !important;
+    height: 25rem;
+  }
+
+  .product-name {
+    text-align: center;
+    display: block;
+    font-size: 15px;
+    font-family: roboto;
+    color: map-get($colors, gray-extra-dark);
+    margin: 6px;
+  }
+
+  .product-slogan {
+    text-align: center;
+    font-size: 12px;
+    display: block;
+    color: map-get($colors, gray);
+  }
+
+  .container-product {
+    width: auto;
+    height: 14rem;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subCategoryThumb {
+    img {
+      max-width: none !important;
+      width: 100%;
+    }
+  }
+
+  .imagen-no-products {
+    align-items: center;
+    align-content: center;
+    display: flex;
+    width: 100%;
+    position: inherit;
+  }
+
+  .center-img {
+    width: inherit;
+    text-align: center;
+    align-items: center;
+    img {
+      max-width: 100%;
+      padding-top: 20%;
+    }
+  }
+  .empty-text {
+    color: map-get($colors, gray-light);
+  }
+  .logo {
+    margin-right: 80px;
+  }
+
+}
