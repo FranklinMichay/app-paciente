@@ -20,7 +20,6 @@ import { ProfilePage } from '../pages/profile/profile';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { RegisterPage } from '../pages/register/register';
 import { ChatPage } from '../pages/chat/chat';
-import { ConfirmPasswordResetPage } from '../pages/confirm-password-reset/confirm-password-reset'
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { ChatService } from '../providers/rest/chat.service';
@@ -47,7 +46,6 @@ import { Facebook } from '@ionic-native/facebook/';
     ChatPage,
     ModalCancelPage,
     ForgotPasswordPage,
-    ConfirmPasswordResetPage
   ],
 
   imports: [
@@ -74,7 +72,6 @@ import { Facebook } from '@ionic-native/facebook/';
     ChatPage,
     ModalCancelPage,
     ForgotPasswordPage,
-    ConfirmPasswordResetPage
   ],
   providers: [
     StatusBar,

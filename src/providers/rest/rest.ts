@@ -256,12 +256,16 @@ export class RestProvider {
         });
     });
   }
-  
-  loginWithFacebook(data: any): Observable<any>{
-   return this.http.post<any>(Config.apiUrlSolcial + 'paciente/verificaEmail/', data);
+
+  loginWithFacebook(data: any): Observable<any> {
+    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/verificaEmail/', data);
   }
 
   recoveryPassword(data: any): Observable<any> {
-    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/emailReset/', data);
+    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/emailResetMovil/', data);
+  }
+
+  validateLoginFacebook(data: any): Observable<any> {
+    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/emailResetMovil/', data);
   }
 }

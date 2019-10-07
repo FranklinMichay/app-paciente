@@ -28,7 +28,7 @@ export class HomePage {
     }];
   connection: any;
   dataHome: any;
-
+  infoFacebook: any;
 
   constructor(public navCtrl: NavController,
     public toast: ToastController,
@@ -40,6 +40,12 @@ export class HomePage {
   ) {
 
   }
+
+ /*  sendInfoServer() {
+    this.infoFacebook = JSON.parse(localStorage.getItem('user'));
+
+    //console.log(this.infoFacebook, 'data user');
+  } */
 
   ngOnInit() {
 

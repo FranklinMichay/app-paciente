@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { ConfirmPasswordResetPage } from '../confirm-password-reset/confirm-password-reset';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RestProvider } from '../../providers/rest/rest';
 
 /**
  * Generated class for the ForgotPasswordPage page.
@@ -19,10 +20,18 @@ export class ForgotPasswordPage {
   [x: string]: any;
 
   email: any;
-  formPass: any = false;
+  passInfoSuccess: any = false;
+  resetPassForm: FormGroup;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public fb: FormBuilder,
+    public restProvider: RestProvider,
+    public tc: ToastController,
+  ) {
+    this.resetPassForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+    });
   }
 
   ionViewDidLoad() {
@@ -33,28 +42,33 @@ export class ForgotPasswordPage {
     this.navCtrl.push(LoginPage);
   }
 
-  sendPasswordRequest() {
-
-    this.formPass = true;
-    //this.auth.requestPasswordReset(this.email);
-    //this.navCtrl.push(ConfirmPasswordResetPage);
-  }
-
   onSubmitRecovery() {
-    if (this.recoveryForm.invalid) {
-      return;
-    }
-    this.submittedRecovery = true;
-    console.log(this.recoveryForm.value, 'el form');
-    const data = { type: 'paciente', email: this.recoveryForm.value.email }
-    this.auth.recoveryPassword(data).subscribe(data => {
-      console.log('datos agenda', data);
+    const data = { type: 'paciente', email: this.resetPassForm.value.email }
+    console.log(data, 'Datos para server..!!');
+    this.restProvider.recoveryPassword(data).subscribe(data => {
+      console.log('datos para enviar', data);
       if (data.result === 'success') {
-        this.openSnackBar('Pedido enviado, revise su correo');
+        let toast = this.tc.create({
+          message: 'Pedido enviado, Revise su correo',
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+        this.passInfoSuccess = true;
       } else
-        this.openSnackBar('Error enviando, intentelo de nuevo');
+        console.log('Error enviando, intentelo de nuevo');
+        let toast = this.tc.create({
+          message: 'Error, intentelo de nuevo',
+          duration: 3000,
+          position: 'top'
+        });
     }, (err) => {
-      this.openSnackBar('Error en el servidor, intentelo mas tarde');
+      console.log('Error en el servidor, intentar luego');
+      let toast = this.tc.create({
+        message: 'Correo electrónico inválido',
+        duration: 3000,
+        position: 'top'
+      });
     });
   }
 

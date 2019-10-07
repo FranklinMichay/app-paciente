@@ -20,7 +20,7 @@ export class LoginPage {
   isLoggedIn: boolean = false
   userFacebook: any;
   user: any = {};
- 
+
   items: any;
   data: any;
   responseData: any;
@@ -59,37 +59,66 @@ export class LoginPage {
       password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]]
     });
   }
-  
+
 
   login() {
     this.facebook.login(['public_profile', 'user_friends', 'email'])
       .then(res => {
         console.log(res)
-        if(res.status === "connected") {
+        if (res.status === "connected") {
           this.getUserDetails(res.authResponse.userID)
-          
           this.navCtrl.setRoot(HomePage)
-          
         } else {
-          
+
         }
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
 
   getUserDetails(userid) {
-    this.facebook.api("/"+userid+"/?fields=id,email,name,picture",["public_profile"])
+    this.facebook.api("/" + userid + "/?fields=id,email,name,picture", ["public_profile"])
       .then(res => {
         this.isLoggedIn = true
         this.userFacebook = res
+        this.validateLoginFacebook();
         localStorage.setItem('user', JSON.stringify(res));
-        console.log(this.userFacebook)
+
+        //console.log(this.userFacebook)
       })
       .catch(e => {
         console.log(e);
       });
   }
 
+  validateLoginFacebook() {
+    //const data = { type: 'paciente', email: this.resetPassForm.value.email }
+    /* console.log(data, 'Datos para server..!!'); */
+    let dataFacebook = JSON.parse(localStorage.getItem('user'));
+    this.restProvider.validateLoginFacebook(dataFacebook['email']).subscribe(data => {
+      //console.log('datos para enviar', dataFacebook);
+      if (data.result === 'success') {
+        let toast = this.tc.create({
+          message: 'Email enviado',
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+      } else
+        console.log('Error enviando, intentelo de nuevo');
+      let toast = this.tc.create({
+        message: 'Error, intentelo de nuevo',
+        duration: 3000,
+        position: 'top'
+      });
+    }, (err) => {
+      console.log('Error en el servidor, intentar luego');
+      let toast = this.tc.create({
+        message: 'Correo electrónico inválido',
+        duration: 3000,
+        position: 'top'
+      });
+    });
+  }
 
   public onLoginHandler() {
     this.menu.enable(true)
@@ -163,6 +192,7 @@ export class LoginPage {
         return message;
     }
   }
+
   goToRegister() {
     this.navCtrl.push(RegisterPage);
   }
