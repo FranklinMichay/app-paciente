@@ -3,29 +3,33 @@
     <img class="logo" src="assets/imgs/medipharm.svg">
     <ion-label class="paciente">PACIENTE</ion-label>
 
-       <form [formGroup]="form_login" (ngSubmit)="saveUser()">
-      <input class="mail" type="text" formControlName="usuario" placeholder="user@gmail.com" [(ngModel)]="user.username">
-      <ion-label *ngIf="form_login.get('usuario').errors && form_login.get('usuario').dirty">
-        <p class="validator" ion-text *ngIf="form_login.get('usuario').hasError('required')">Este campo es requerido</p>
-        <p class="validator" ion-text *ngIf="form_login.get('usuario').hasError('email')">El email es inválido</p>
-      </ion-label>
-      <div class="password">
-        <ion-col col-10>
-          <input [type]="passwordType" formControlName="password" clearOnEdit="true" placeholder="******"
-            [(ngModel)]="user.password" class="input-pass">
-        </ion-col>
-        <ion-col col-2>
-          <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-        </ion-col>
-      </div>
-      <div *ngIf="form_login.get('password').errors && form_login.get('password').dirty">
-        <p class="validator" ion-text *ngIf="form_login.get('password').hasError('required')">Este campo es requerido
-        </p>
-        <p class="validator" ion-text *ngIf="form_login.get('password').hasError('pattern')">Contraseña debe contener
-          letras y números</p>
-      </div>
-      <button ion-button class="iniciar-sesion" type="submit" [disabled]="form_login.invalid">INGRESAR</button>
-    </form> 
+    <form [formGroup]="form_login" (ngSubmit)="saveUser()">
+        <input class="mail" type="text" formControlName="usuario" placeholder="user@gmail.com"
+            [(ngModel)]="user.username">
+        <ion-label *ngIf="form_login.get('usuario').errors && form_login.get('usuario').dirty">
+            <p class="validator" ion-text *ngIf="form_login.get('usuario').hasError('required')">Este campo es requerido
+            </p>
+            <p class="validator" ion-text *ngIf="form_login.get('usuario').hasError('email')">El email es inválido</p>
+        </ion-label>
+        <div class="password">
+            <ion-col col-10>
+                <input [type]="passwordType" formControlName="password" clearOnEdit="true" placeholder="******"
+                    [(ngModel)]="user.password" class="input-pass">
+            </ion-col>
+            <ion-col col-2>
+                <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            </ion-col>
+        </div>
+        <div *ngIf="form_login.get('password').errors && form_login.get('password').dirty">
+            <p class="validator" ion-text *ngIf="form_login.get('password').hasError('required')">Este campo es
+                requerido
+            </p>
+            <p class="validator" ion-text *ngIf="form_login.get('password').hasError('pattern')">Contraseña debe
+                contener
+                letras y números</p>
+        </div>
+        <button ion-button class="iniciar-sesion" type="submit" [disabled]="form_login.invalid">INGRESAR</button>
+    </form>
     <ion-label class="Conectate-con"> Conéctate con </ion-label>
 
     <ion-row>
@@ -35,12 +39,13 @@
             </button>
         </ion-col>
         <ion-col>
-            <button ion-button class="conect-gmail" type="submit" (click)="loginGoogle()">
+            <button ion-button class="conect-gmail" type="submit" (click)="loginWithGP()">
                 <ion-icon class="icon-gmail" name="logo-google"></ion-icon> &nbsp;GOOGLE
             </button>
-            <div *ngIf="googleInfo">
-                <p>name: {{userGoogle.name}}</p>
-                <p>email: {{userGoogle.email}}</p>
+            <div *ngIf="googleInfo" style="text-align:center">
+                <img src="{{userGoogle.imageUrl}}">
+                <h3>{{userGoogle.name}}</h3>
+                <p>{{userGoogle.email}}</p>
             </div>
         </ion-col>
     </ion-row>
@@ -52,15 +57,4 @@
             <ion-label class="new-account" (tap)="goToRegister()"> CREAR CUENTA </ion-label>
         </ion-col>
     </ion-row>
-
-    <div>
-        <button ion-button (click)="login()" *ngIf="!isLoggedIn">Login with Facebook!</button>
-    </div>
-    <div *ngIf="isLoggedIn">
-        <img src="{{user.picture.data.url}}" alt=""><br>
-        <i>{{user.name}}</i><br>
-        <i>{{user.email}}</i><br>
-    </div>
-
-
 </ion-content>
