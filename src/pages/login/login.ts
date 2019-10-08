@@ -8,6 +8,9 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'page-login',
@@ -18,9 +21,10 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 export class LoginPage {
 
   isLoggedIn: boolean = false
+  googleInfo = false;
   userFacebook: any;
   user: any = {};
-
+  userGoogle: any;
   items: any;
   data: any;
   responseData: any;
@@ -47,7 +51,9 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public tc: ToastController,
     public menu: MenuController,
-    private facebook: Facebook
+    private facebook: Facebook,
+    private google: GooglePlus,
+    private httpClient: HttpClient
 
 
   ) {
@@ -59,6 +65,7 @@ export class LoginPage {
       password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]]
     });
   }
+
 
 
   login() {
@@ -73,6 +80,28 @@ export class LoginPage {
         }
       })
       .catch(e => console.log('Error logging into Facebook', e));
+  }
+
+  loginGoogle() {
+    this.google.login({})
+      .then(res => {
+        this.userGoogle = res;
+        this.getData();
+        this.googleInfo = true;
+        this.navCtrl.setRoot(HomePage)
+        console.log(res);
+      })
+      .catch(err => console.error(err));
+  }
+
+  getData() {
+    //let token = this.userGoogle.accessToken;
+    this.httpClient.get('https://www.googleapis.com/plus/v1/people/me?access_token=' + this.userGoogle.accessToken)
+    .subscribe((data: any) => {
+    this.userGoogle.name = data.displayName;
+    this.userGoogle.image = data.image.url;
+    localStorage.setItem('user', JSON.stringify(data));
+    })
   }
 
   getUserDetails(userid) {

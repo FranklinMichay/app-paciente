@@ -26,6 +26,7 @@ import { ChatService } from '../providers/rest/chat.service';
 import { ModalCancelPage } from '../pages/modal-cancel/modal-cancel';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password'
 import { Facebook } from '@ionic-native/facebook/';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 @NgModule({
@@ -82,6 +83,8 @@ import { Facebook } from '@ionic-native/facebook/';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     RestProvider,
     ChatService,
+    GooglePlus
+    
 
 
     //FileUploadOptions
