@@ -8,7 +8,7 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus/';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -21,10 +21,10 @@ import { HttpClient } from '@angular/common/http';
 export class LoginPage {
 
   isLoggedIn: boolean = false
-  googleInfo = false;
+  googleInfo: boolean = false
   userFacebook: any;
   user: any = {};
-  userGoogle: any;
+  userGoogle: any = {}
   items: any;
   data: any;
   responseData: any;
@@ -52,8 +52,8 @@ export class LoginPage {
     public tc: ToastController,
     public menu: MenuController,
     private facebook: Facebook,
-    private google: GooglePlus,
-    private httpClient: HttpClient
+    private gp: GooglePlus,
+    private http: HttpClient
 
 
   ) {
@@ -65,8 +65,6 @@ export class LoginPage {
       password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]]
     });
   }
-
-
 
   login() {
     this.facebook.login(['public_profile', 'user_friends', 'email'])
@@ -82,8 +80,25 @@ export class LoginPage {
       .catch(e => console.log('Error logging into Facebook', e));
   }
 
-  loginGoogle() {
-    this.google.login({})
+
+
+  loginWithGP() {
+    var webClientId = '606633412500-qpb3ioll8fbi40lqnr8e3c0pvh9hmitc.apps.googleusercontent.com';
+    this.gp.login(
+      {
+        'webClientId': webClientId,
+        'offline': true
+      }
+    ).then(res => {
+      this.userGoogle = res;
+      this.googleInfo = true;
+
+    }).catch(err => console.log(err));
+    this.navCtrl.setRoot(HomePage)
+  }
+
+  /* loginGoogle() {
+    this.gp.login({})
       .then(res => {
         this.userGoogle = res;
         this.getData();
@@ -92,16 +107,18 @@ export class LoginPage {
         console.log(res);
       })
       .catch(err => console.error(err));
-  }
+  
+  } */
 
   getData() {
     //let token = this.userGoogle.accessToken;
-    this.httpClient.get('https://www.googleapis.com/plus/v1/people/me?access_token=' + this.userGoogle.accessToken)
-    .subscribe((data: any) => {
-    this.userGoogle.name = data.displayName;
-    this.userGoogle.image = data.image.url;
-    localStorage.setItem('user', JSON.stringify(data));
-    })
+    this.http.get('https://www.googleapis.com/plus/v1/people/me?access_token=' + this.userGoogle.accessToken)
+      .subscribe((data: any) => {
+        localStorage.setItem('user', JSON.stringify(data));
+        this.userGoogle.name = data.displayName;
+        this.userGoogle.image = data.image.url;
+
+      })
   }
 
   getUserDetails(userid) {
