@@ -7,7 +7,10 @@ import { AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'page-login',
@@ -18,8 +21,10 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/';
 export class LoginPage {
 
   isLoggedIn: boolean = false
-  user: any
- 
+  googleInfo = false;
+  userFacebook: any;
+  user: any = {};
+  userGoogle: any;
   items: any;
   data: any;
   responseData: any;
@@ -46,7 +51,9 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public tc: ToastController,
     public menu: MenuController,
-    private facebook: Facebook
+    private facebook: Facebook,
+    private google: GooglePlus,
+    private httpClient: HttpClient
 
 
   ) {
@@ -58,37 +65,89 @@ export class LoginPage {
       password: ['', [Validators.pattern(/^[a-z0-9_-]{6,18}$/)]]
     });
   }
-  
+
+
 
   login() {
     this.facebook.login(['public_profile', 'user_friends', 'email'])
       .then(res => {
         console.log(res)
-        if(res.status === "connected") {
+        if (res.status === "connected") {
           this.getUserDetails(res.authResponse.userID)
-          
           this.navCtrl.setRoot(HomePage)
-          
         } else {
-          
+
         }
       })
       .catch(e => console.log('Error logging into Facebook', e));
   }
 
+  loginGoogle() {
+    this.google.login({})
+      .then(res => {
+        this.userGoogle = res;
+        this.getData();
+        this.googleInfo = true;
+        this.navCtrl.setRoot(HomePage)
+        console.log(res);
+      })
+      .catch(err => console.error(err));
+  }
+
+  getData() {
+    //let token = this.userGoogle.accessToken;
+    this.httpClient.get('https://www.googleapis.com/plus/v1/people/me?access_token=' + this.userGoogle.accessToken)
+    .subscribe((data: any) => {
+    this.userGoogle.name = data.displayName;
+    this.userGoogle.image = data.image.url;
+    localStorage.setItem('user', JSON.stringify(data));
+    })
+  }
+
   getUserDetails(userid) {
-    this.facebook.api("/"+userid+"/?fields=id,email,name,picture",["public_profile"])
+    this.facebook.api("/" + userid + "/?fields=id,email,name,picture", ["public_profile"])
       .then(res => {
         this.isLoggedIn = true
-        this.user = res
+        this.userFacebook = res
+        this.validateLoginFacebook();
         localStorage.setItem('user', JSON.stringify(res));
-        console.log(this.user)
+
+        //console.log(this.userFacebook)
       })
       .catch(e => {
         console.log(e);
       });
   }
 
+  validateLoginFacebook() {
+    //const data = { type: 'paciente', email: this.resetPassForm.value.email }
+    /* console.log(data, 'Datos para server..!!'); */
+    let dataFacebook = JSON.parse(localStorage.getItem('user'));
+    this.restProvider.validateLoginFacebook(dataFacebook['email']).subscribe(data => {
+      //console.log('datos para enviar', dataFacebook);
+      if (data.result === 'success') {
+        let toast = this.tc.create({
+          message: 'Email enviado',
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+      } else
+        console.log('Error enviando, intentelo de nuevo');
+      let toast = this.tc.create({
+        message: 'Error, intentelo de nuevo',
+        duration: 3000,
+        position: 'top'
+      });
+    }, (err) => {
+      console.log('Error en el servidor, intentar luego');
+      let toast = this.tc.create({
+        message: 'Correo electrónico inválido',
+        duration: 3000,
+        position: 'top'
+      });
+    });
+  }
 
   public onLoginHandler() {
     this.menu.enable(true)
@@ -162,6 +221,7 @@ export class LoginPage {
         return message;
     }
   }
+
   goToRegister() {
     this.navCtrl.push(RegisterPage);
   }
