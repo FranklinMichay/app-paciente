@@ -1,0 +1,22 @@
+<ion-content>
+  <img class="splash" src="assets/imgs/splash.svg">
+  <img class="logo" src="assets/imgs/medipharm.svg">
+  <ion-label class="text-forgot-pass">Recuperar Contraseña</ion-label>
+  <div *ngIf="!passInfoSuccess">
+    <div class="container-cancel">
+      <label class="sel-text">Ingresa una dirección de correo electrónico válida, se te enviará una nueva
+        contraseña</label>
+    </div>
+    <form [formGroup]="identificationForm" (ngSubmit)="registerSocial()">
+      <ion-item class="password">
+        <input class="mail" formControlName="email" placeholder="user@gmail.com" [(ngModel)]="identification">
+      </ion-item>
+      <ion-label *ngIf="identificationForm.get('identification').errors && identificationForm.get('identification').dirty">
+        <p class="validator" ion-text *ngIf="identificationForm.get('identification').hasError('required')">Este campo es requerido
+        </p>
+        <p class="validator" ion-text *ngIf="identificationForm.get('identification').hasError('identification')">Sólo números, máximo 10</p>
+      </ion-label>
+      <button ion-button class="iniciar-sesion" type="submit" [disabled]="identificationForm.invalid">CONTINUAR</button> 
+    </form>
+  </div>
+</ion-content>

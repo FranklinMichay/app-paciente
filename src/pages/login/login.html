@@ -39,13 +39,12 @@
             </button>
         </ion-col>
         <ion-col>
-            <button ion-button class="conect-gmail" type="submit" (click)="loginWithGP()">
+            <button ion-button class="conect-gmail" type="submit" (click)="loginUser()">
                 <ion-icon class="icon-gmail" name="logo-google"></ion-icon> &nbsp;GOOGLE
             </button>
-            <div *ngIf="googleInfo" style="text-align:center">
-                <img src="{{userGoogle.imageUrl}}">
-                <h3>{{userGoogle.name}}</h3>
-                <p>{{userGoogle.email}}</p>
+            <div *ngIf="googleInfo">
+                <p>name: {{dataG.displayName}}</p>
+                <p>email: {{dataG.email}}</p>
             </div>
         </ion-col>
     </ion-row>
@@ -58,3 +57,5 @@
         </ion-col>
     </ion-row>
 </ion-content>
+
+<!-- 921516528206-1kmu724lgga157vp401fdff2tr5d4o1a.apps.googleusercontent.com -->

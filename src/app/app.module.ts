@@ -25,8 +25,10 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { ChatService } from '../providers/rest/chat.service';
 import { ModalCancelPage } from '../pages/modal-cancel/modal-cancel';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password'
+import { CompleteLoginPage } from '../pages/complete-login/complete-login'
 import { Facebook } from '@ionic-native/facebook/';
 import { GooglePlus } from '@ionic-native/google-plus/';
+
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { GooglePlus } from '@ionic-native/google-plus/';
     ChatPage,
     ModalCancelPage,
     ForgotPasswordPage,
+    CompleteLoginPage
   ],
 
   imports: [
@@ -73,6 +76,7 @@ import { GooglePlus } from '@ionic-native/google-plus/';
     ChatPage,
     ModalCancelPage,
     ForgotPasswordPage,
+    CompleteLoginPage
   ],
   providers: [
     StatusBar,

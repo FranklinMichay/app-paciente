@@ -266,6 +266,18 @@ export class RestProvider {
   }
 
   validateLoginFacebook(data: any): Observable<any> {
-    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/emailResetMovil/', data);
+    return this.http.post<any>(Config.apiUrlSolcial + 'paciente/verificaEmail/', data);
+  }
+
+  registerSocial(data) {
+    console.log(data, 'DATOS REGISTRO PACIENTE');
+    return new Promise((resolve, reject) => {
+      this.http.post(Config.apiUrl + 'movil/registroPaciente/', data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 }
