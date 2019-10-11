@@ -27,9 +27,9 @@ import { ModalCancelPage } from '../pages/modal-cancel/modal-cancel';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password'
 import { CompleteLoginPage } from '../pages/complete-login/complete-login'
 import { Facebook } from '@ionic-native/facebook/';
-import { GooglePlus } from '@ionic-native/google-plus/';
-
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { enviroments } from '../enviroments/enviroments';
 
 @NgModule({
   declarations: [
@@ -56,6 +56,8 @@ import { GooglePlus } from '@ionic-native/google-plus/';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(enviroments.firebase),
 
   ],
   bootstrap: [IonicApp],
@@ -84,7 +86,6 @@ import { GooglePlus } from '@ionic-native/google-plus/';
     BackgroundMode,
     LocalNotifications,
     Facebook,
-    GooglePlus,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     RestProvider,
     ChatService,

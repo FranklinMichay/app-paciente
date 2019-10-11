@@ -8,9 +8,10 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { GooglePlus } from '@ionic-native/google-plus/';
 import { HttpClient } from '@angular/common/http';
-import { Firebase } from '@ionic-native/firebase';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
+
 
 
 @Component({
@@ -54,9 +55,9 @@ export class LoginPage {
     public tc: ToastController,
     public menu: MenuController,
     private facebook: Facebook,
-    private gp: GooglePlus,
     private http: HttpClient,
-    private firebase: Firebase
+    public afAuth: AngularFireAuth,
+    //private firebase: Firebase
 
 
   ) {
@@ -95,82 +96,11 @@ export class LoginPage {
       });
   }
 
-  loginWithGP() {
-    // var webClientId = '606633412500-qpb3ioll8fbi40lqnr8e3c0pvh9hmitc.apps.googleusercontent.com';
-    this.gp.login(
-      {
-        'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-        'webClientId': '606633412500-olctcvi744f5e0fijbkmvhsufq0qs39v.apps.googleusercontent.com',
-        // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-        'offline': true
-      }
-    ).then(res => {
-      localStorage.setItem('user', JSON.stringify(res));
-      this.googleInfo = true
-      this.dataG = JSON.parse(localStorage.getItem('user'));
-      this.dataG.user.displayName
-      this.dataG.user.email
-      //this.navCtrl.setRoot(HomePage)
-    })
-      .catch(err => {
-        let toast = this.tc.create({
-          message: err,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
-        //this.navCtrl.setRoot(HomePage)
-      })
-  }
-
-  loginUser(): void {
-    this.gp.login({
-      'webClientId': '606633412500-olctcvi744f5e0fijbkmvhsufq0qs39v.apps.googleusercontent.com',
-      'offline': true
-    }).then(res => {
-      firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-        .then(success => {
-          localStorage.setItem('user', JSON.stringify(res));
-          this.googleInfo = true
-          this.dataG = JSON.parse(localStorage.getItem('user'));
-          this.dataG.user.displayName
-          this.dataG.user.email
-          let toast = this.tc.create({
-            message: JSON.stringify(success),
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
-          //console.log("Firebase success: " + JSON.stringify(success));
-        })
-        .catch(error => {
-          let toast = this.tc.create({
-            message: JSON.stringify(error),
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
-          //console.log("Firebase success: " + JSON.stringify(success));
-        })
-    }).catch(err => {
-      let toast = this.tc.create({
-        message: err,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
-    })
-  }
-
-  getData() {
-    //let token = this.userGoogle.accessToken;
-    this.http.get('https://www.googleapis.com/plus/v1/people/me?access_token=' + this.userGoogle.accessToken)
-      .subscribe((data: any) => {
-        localStorage.setItem('user', JSON.stringify(data));
-        this.userGoogle.name = data.displayName;
-        this.userGoogle.image = data.image.url;
-
-      })
+  async  loginWithGoogle() {
+    let dataGoogle1 = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+    console.log('acceso ok', dataGoogle1);
+    localStorage.setItem('user', JSON.stringify(dataGoogle1));
+    this.navCtrl.setRoot(HomePage)
   }
 
   validateLoginFacebook() {
